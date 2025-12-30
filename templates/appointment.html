@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}Book Appointment - BrightSmile Dental Clinic{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold mb-2">Book Your Appointment</h1>
+                <p class="text-muted">Fill out the form below to request an appointment</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Appointment Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-5">
+                        <form method="POST" action="{{ url_for('appointment') }}" id="appointmentForm">
+                            <div class="mb-4">
+                                <label for="name" class="form-label fw-semibold">
+                                    <i class="bi bi-person me-2"></i>Full Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Enter your full name" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="phone" class="form-label fw-semibold">
+                                    <i class="bi bi-telephone me-2"></i>Phone Number <span class="text-danger">*</span>
+                                </label>
+                                <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="(555) 123-4567" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-semibold">
+                                    <i class="bi bi-envelope me-2"></i>Email Address (Optional)
+                                </label>
+                                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="your.email@example.com">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="service_id" class="form-label fw-semibold">
+                                    <i class="bi bi-clipboard-check me-2"></i>Service <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select form-select-lg" id="service_id" name="service_id" required>
+                                    <option value="">Select a service</option>
+                                    {% for service in services %}
+                                    <option value="{{ service.id }}">{{ service.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="date" class="form-label fw-semibold">
+                                    <i class="bi bi-calendar3 me-2"></i>Preferred Date <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" class="form-control form-control-lg" id="date" name="date" required>
+                                <small class="form-text text-muted">Please select your preferred appointment date</small>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label fw-semibold">
+                                    <i class="bi bi-card-text me-2"></i>Message / Notes (Optional)
+                                </label>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Any additional information or special requests..."></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check-circle me-2"></i>Submit Appointment Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <p class="text-muted">Need immediate assistance? <a href="{{ url_for('contact') }}" class="text-primary">Contact us</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    });
+
+    // Form validation
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        const date = document.getElementById('date').value;
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+            e.preventDefault();
+            alert('Please select a future date.');
+            return false;
+        }
+    });
+</script>
+{% endblock %}
+

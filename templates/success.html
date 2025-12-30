@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Appointment Request Submitted - BrightSmile Dental Clinic{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm text-center">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">Appointment Request Submitted!</h2>
+                    <p class="text-muted mb-4">
+                        Thank you for choosing BrightSmile Dental. We have received your appointment request and will contact you shortly to confirm your appointment.
+                    </p>
+                    <p class="text-muted mb-4">
+                        You will receive a confirmation call or email within 24 hours. If you have any urgent questions, please don't hesitate to contact us directly.
+                    </p>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-house me-2"></i>Return to Home
+                        </a>
+                        <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-telephone me-2"></i>Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

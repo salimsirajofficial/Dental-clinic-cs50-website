@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}Contact Us - BrightSmile Dental Clinic{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
+                <p class="lead text-muted">We're here to help with all your dental care needs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="bi bi-geo-alt-fill text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="fw-bold mt-3 mb-2">Address</h5>
+                        <p class="text-muted mb-0">123 Health Street<br>Medical District<br>City 12345</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="bi bi-telephone-fill text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="fw-bold mt-3 mb-2">Phone</h5>
+                        <p class="text-muted mb-0">
+                            <a href="tel:+15551234567" class="text-decoration-none text-muted">(555) 123-4567</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="bi bi-envelope-fill text-primary" style="font-size: 3rem;"></i>
+                        <h5 class="fw-bold mt-3 mb-2">Email</h5>
+                        <p class="text-muted mb-0">
+                            <a href="mailto:info@brightsmile.com" class="text-decoration-none text-muted">info@brightsmile.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="bg-light text-center py-5" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                            <div>
+                                <i class="bi bi-geo-alt text-muted" style="font-size: 4rem;"></i>
+                                <p class="text-muted mt-3 mb-0">Google Maps Integration Placeholder</p>
+                                <small class="text-muted">Replace with actual Google Maps embed code</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Working Hours -->
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4 text-center">Working Hours</h4>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td class="fw-semibold">Monday - Friday</td>
+                                    <td class="text-end">9:00 AM - 6:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold">Saturday</td>
+                                    <td class="text-end">9:00 AM - 2:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold">Sunday</td>
+                                    <td class="text-end text-muted">Closed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to Schedule Your Visit?</h2>
+        <p class="lead mb-4">Book your appointment online or give us a call</p>
+        <a href="{{ url_for('appointment') }}" class="btn btn-light btn-lg me-2">
+            <i class="bi bi-calendar-check me-2"></i>Book Appointment
+        </a>
+        <a href="tel:+15551234567" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-telephone me-2"></i>Call Us Now
+        </a>
+    </div>
+</section>
+{% endblock %}
+
