@@ -83,17 +83,20 @@ def init_db():
             ("Admin User", "admin@clinic.com", password_hash, "admin")
         )
     
-    # Insert default services if none exist
+    # Insert Alif Dental Clinic services if none exist
     services_count = db.execute("SELECT COUNT(*) as count FROM services").fetchone()["count"]
     if services_count == 0:
-        default_services = [
-            ("Dental Checkup", "Comprehensive oral examination to assess your dental health and identify any issues early."),
-            ("Teeth Cleaning", "Professional cleaning to remove plaque, tartar, and stains for a healthier smile."),
-            ("Tooth Extraction", "Safe and gentle tooth removal procedure when necessary for your oral health."),
-            ("Root Canal", "Expert root canal treatment to save infected teeth and relieve pain."),
-            ("Teeth Whitening", "Professional whitening treatments to brighten your smile and boost confidence.")
+        alif_services = [
+            ("Teeth brace/orthodontic", "We help straighten your teeth with braces and other orthodontic care. Our treatment makes your smile better, fixes bite problems, and keeps your mouth healthy. Each plan is made to fit your needs."),
+            ("Teeth washing/bleaching", "We clean and whiten your teeth to make your smile brighter. Our safe treatment removes stains and helps your teeth look fresh and healthy."),
+            ("Implants / prosthodontist", "We replace missing teeth safely with implants. Our modern implant service is designed to match your other teeth beautifully. We use high-quality materials such as zirconia, ceramic, Aermax, and flexible dentures to make your smile complete again. This treatment brings back your confidence and improves your quality of life."),
+            ("Restorations", "We restore your teeth to their natural look without harming the surrounding teeth."),
+            ("Child Dental Care", "We provide exceptional kids dental care ensuring that children receive gentle and expert treatment for a lifetime of healthy smiles."),
+            ("Emergency Dental Care", "Alif Dental Clinic is here to provide fast and effective emergency dental care in Addis Ababa, helping you manage pain and prevent further damage."),
+            ("Cosmetic Dentistry", "Our cosmetic dentistry services are designed to enhance your appearance and boost your confidence using the latest technology and expert care."),
+            ("Oral & MaxilloFacial Surgery", "Our experienced surgeons perform a range of oral and maxillofacial procedures, ensuring you receive the best care possible.")
         ]
-        for title, description in default_services:
+        for title, description in alif_services:
             db.execute(
                 "INSERT INTO services (title, description) VALUES (?, ?)",
                 (title, description)
@@ -147,6 +150,7 @@ def appointment():
         email = request.form.get("email") or None
         service_id = request.form.get("service_id")
         date = request.form.get("date")
+        time = request.form.get("time") or None
         message = request.form.get("message") or None
         
         # Validate required fields
@@ -154,13 +158,17 @@ def appointment():
             flash("Please fill in all required fields.", "danger")
             return redirect("/appointment")
         
-        # Insert appointment
+        # Insert appointment (store time in message if provided, or add to date)
         db = get_db()
         try:
+            full_message = message or ""
+            if time:
+                full_message = f"Preferred Time: {time}\n\n{full_message}".strip()
+            
             db.execute(
                 """INSERT INTO appointments (name, phone, email, service_id, date, message, status)
                    VALUES (?, ?, ?, ?, ?, ?, 'Pending')""",
-                (name, phone, email, service_id, date, message)
+                (name, phone, email, service_id, date, full_message)
             )
             db.commit()
             db.close()
@@ -187,6 +195,18 @@ def success():
 def contact():
     """Contact page"""
     return render_template("contact.html")
+
+
+@app.route("/testimonials")
+def testimonials():
+    """Testimonials page"""
+    return render_template("testimonials.html")
+
+
+@app.route("/faq")
+def faq():
+    """FAQ page"""
+    return render_template("faq.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
